@@ -1,11 +1,12 @@
 const Product = require("../models/productModels");
+const Errorhander = require("../utilis/errorhandler");
 
 
 //create product
 
 exports.createProduct = async (req,res,next)=>{
 
-        try {
+        
             const product = await Product.create(req.body);
 
             res.status(201).json({
@@ -14,15 +15,11 @@ exports.createProduct = async (req,res,next)=>{
             })
             
         }
-        catch (error) {
-            res.status(200).json({
-                sucess:false,
-                message:"please enter a valid entry" 
-            })
+       
 
-        }
+       
 
-}
+
 
 // get product
 
@@ -50,14 +47,11 @@ exports.createProduct = async (req,res,next)=>{
 
     exports.updateProducts = async (req,res,next)=>{
 
-        try {
+       
             let product = await Product.findById(req.params.id);
             
             if(!product){
-              res.status(500).json({
-                success:false,
-                message: "product not found"
-              })
+             return next(new Errorhander("Product not found",404));
             }
 
             product = await Product.findByIdandUpdate(req.params.id,req.body,{
@@ -74,16 +68,7 @@ exports.createProduct = async (req,res,next)=>{
 
         } 
     
-            catch (error) {
-            res.status(200).json({
-                sucess:false,
-                message:"please enter a valid entry" 
-            })
-        }
-    
-        
-        }
-    
+      
 // delete product
 
 exports.deleteproduct = async(req,res,next) =>{
@@ -110,3 +95,20 @@ exports.deleteproduct = async(req,res,next) =>{
 }
 
 
+exports.getproduct = async (req,res) => {
+
+    let product = await Product.findById(req.params.id);
+
+    if(!product){
+        res.status(500).json({
+          success:false,
+          message: "product not found"
+        })
+      }
+
+      res.status(200).json({
+
+        success:true,
+        message:"product found"
+        })
+}
