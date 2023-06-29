@@ -1,20 +1,21 @@
 const Product = require("../models/productModels");
 const Errorhander = require("../utilis/errorhandler");
+const AsyncErrors = require("../middlewares/catchAsyncError");
 
 
 //create product
 
-exports.createProduct = async (req,res,next)=>{
+exports.createProduct = catchAsyncErrors(async (req,res,next)=>{
 
         
-            const product = await Product.create(req.body);
+    const product = await Product.create(req.body);
 
-            res.status(201).json({
-                success:true,
-                product
-            })
-            
-        }
+    res.status(201).json({
+        success:true,
+        product
+    });
+    
+});
        
 
        
@@ -25,21 +26,16 @@ exports.createProduct = async (req,res,next)=>{
 
     exports.getAllProducts = async (req,res)=>{
 
-    try {
         const products = await Product.find();
 
         res.status(200).json({Message:"Route is working fine"})
-    } 
+    };
 
-        catch (error) {
-        res.status(200).json({
-            sucess:false,
-            message:"please enter a valid entry" 
-        })
-    }
+        
+    
 
     
-    }
+    
 
 
 
@@ -66,7 +62,7 @@ exports.createProduct = async (req,res,next)=>{
             
             })
 
-        } 
+        };
     
       
 // delete product
@@ -89,11 +85,10 @@ exports.deleteproduct = async(req,res,next) =>{
       success:true,
       message:"product removed successfully"
       })
+};
 
 
-
-}
-
+// Get product by ID
 
 exports.getproduct = async (req,res) => {
 
@@ -111,4 +106,4 @@ exports.getproduct = async (req,res) => {
         success:true,
         message:"product found"
         })
-}
+};

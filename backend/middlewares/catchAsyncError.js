@@ -1,5 +1,5 @@
 Module.exports = theFunc =>(req,res,next)=>{
 
-   Promise.resolve(theFunc(req,res,next)).catch
+Promise.resolve(theFunc(req,res,next)).catch(next);
 
-}
+};
