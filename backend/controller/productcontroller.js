@@ -1,6 +1,7 @@
 const Product = require("../models/productModels");
 const Errorhander = require("../utilis/errorhandler");
 const AsyncErrors = require("../middlewares/catchAsyncError");
+const Apifeatures = require("../utilis/apifeature");
 
 
 //create product
