@@ -23,6 +23,23 @@ class Apifeatures {
 
 
     }
-}
+
+    filter(){
+      
+      const queryCopy = {...this.queryStr}
+      console.log(queryCopy);
+      // removing some fields for category
+
+      const removeFields = ["keywords","page","limit"];
+
+      removeFields.forEach(key=> delete queryCopy[key]);
+        
+        this.query = this.query.find(queryCopy);
+        return this;
+        
+      };
+    
+    }
+
 
 module.exports = Apifeatures

@@ -23,7 +23,7 @@ exports.createProduct = catchAsyncErrors(async (req,res,next)=>{
 
 exports.getAllProducts = catchAsyncErrors(async(req,res)=>{
 
-    const apifeatures = new Apifeatures(Product.find(),req.query).search();
+    const apifeatures = new Apifeatures(Product.find(),req.query).search().filter();
     const Product = await apifeatures.query;
 
     res.status(200).json({
