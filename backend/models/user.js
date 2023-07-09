@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const validator = require("mongoose");
-
+const bcryptjs = require("bcryptjs") ;
 
 const userSchema = new mongoose.Schema({
     
@@ -49,6 +49,27 @@ const userSchema = new mongoose.Schema({
 
 
 });
+
+
+// password hashing
+
+userSchema.pre("save",async function(next){
+    
+    if(!this.isModified("password")){
+
+      next();
+    }
+
+    this.password = await bcrypt.hash(this.password,10);
+
+});
+
+
+//  JWT
+
+
+
+
 
 module.exports = mongoose.model("User",userSchema);
 
