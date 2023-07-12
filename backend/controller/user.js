@@ -1,9 +1,9 @@
 const ErrorHander =  require("../utils/errorhandler");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
-
-
-
 const User = require("../models/user");
+
+
+
 
 exports.registeruser = catchAsyncErrors(async(req,res,next)=>{
 
