@@ -46,7 +46,7 @@ exports.registeruser = catchAsyncErrors(async(req,res,next)=>{
 
     if(!user){
 
-        return next(new Errorhander("Invalid email or password",401));
+        return next(new ErrorHander("Invalid email or password",401));
     }
     
     const isPasswordMatched = User.comparePassword(password);
