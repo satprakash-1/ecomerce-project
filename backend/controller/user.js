@@ -29,11 +29,11 @@ exports.registeruser = catchAsyncErrors(async(req,res,next)=>{
   });
 
 
-  //Login User
+//Login User
 
-  exports.loginUser = catchAsyncErrors(async (req,res,next) => {
+exports.loginUser = catchAsyncErrors(async (req,res,next) => {
 
-    const {email,password} = req.body ;
+    const {email,password} = req.body;
      
     // checking if user has given password and email both
 
@@ -63,6 +63,22 @@ exports.registeruser = catchAsyncErrors(async(req,res,next)=>{
         token,
     });
 
-  });
+});
 
+// logout 
 
+exports.logout = catchAsyncErrors(async(req,res,next)=>{
+
+    res.cookie('token',null,{
+        expires: new Date(Date.now()),
+        httpOnly: true,
+    });
+
+     
+
+    res.status(200).json({
+
+        success:true,
+        message:'logged out',
+    })
+});
