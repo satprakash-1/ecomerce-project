@@ -1,8 +1,7 @@
 const ErrorHander =  require("../utils/errorhandler");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const User = require("../models/user");
-
-
+const jwt = require("jsonwebtoken");
 
 
 exports.registeruser = catchAsyncErrors(async(req,res,next)=>{
@@ -81,4 +80,29 @@ exports.logout = catchAsyncErrors(async(req,res,next)=>{
         success:true,
         message:'logged out',
     })
+});
+
+
+// Forgot Password
+
+exports.forgotPassword = catchAsyncErrors(async(req,res,next)=>{
+
+    const user = await User.findOne({email:req.body.email});
+
+    if(!user){
+
+       return next(new ErrorHander("User not found",404));
+
+    }
+
+    // Get ResetPassword Token 
+
+    const resetTokenuser  = user.getResetPasswordToken();
+     
+    await user.save({ validateBeforeSave: false});
+
+
+    const ResetPasswordUrl = `http://localhost/api/v1/password/reset/${resetToken}`
+    
+    
 });
